@@ -16,10 +16,10 @@
 
 package com.josdem.vetlog.service;
 
-import com.josdem.vetlog.command.PetCommand;
 import com.josdem.vetlog.enums.VaccinationStatus;
 import com.josdem.vetlog.model.Pet;
 import com.josdem.vetlog.model.Vaccination;
+import com.josdem.vetlog.record.PetRecord;
 import java.util.List;
 
 public interface VaccinationService {
@@ -31,5 +31,5 @@ public interface VaccinationService {
 
     void deleteVaccinesByPet(Pet pet);
 
-    void updateVaccinations(PetCommand petCommand, Pet pet);
+    void updateVaccinations(PetRecord petRecord, Pet pet);
 }

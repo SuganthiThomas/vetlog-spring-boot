@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title th:text="#{pet.view.list.title}"></title>
+    <head th:insert="~{fragments/include}"/>
+    <script th:src="@{/assets/servizi-dog-theme/node_modules/jquery/dist/jquery.min.js}"></script>
+</head>
+<body>
+<div th:insert="~{fragments/header}"/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<div class="container">
+    <div class="row">
+        <div th:if="${petLogs.isEmpty()}">
+            <div align="center">
+                <p th:text="#{pet.list.empty}"/>
+            </div>
+        </div>
+        <div align="center">
+            <a th:href="@{/petlog/create(uuid=${uuid})}" class="btn btn-success"><p th:text="#{petlog.register}"/></a>
+        </div>
+        <br/><br/>
+        <div th:each="log : ${petLogs}">
+            <div class="col-sm-6 col-md-4" style="text-align:center;">
+                <div class="thumbnail">
+                    <h3 th:text="${log.pet.name}"></h3>
+                    <div class="caption" style="text-align:left;">
+                        <p>
+                        <ul>
+                            <li th:text="${log.dateCreated}"/>
+                            <li th:text="${log.vetName}"/>
+                            <li th:text="${log.signs}"/>
+                            <li th:text="${log.diagnosis}"/>
+                            <li th:text="${log.medicine}"/>
+                            <a th:if="${log.isHasAttachment}" th:href="${gcpPrescriptionUrl + log.uuid}"><p th:text="#{petlog.file}"/></a>
+                        </ul>
+                        </p>
+                    </div>
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <a th:data-testid="petLogEditButton" th:href="@{/petlog/edit(uuid=${log.uuid})}" class="btn btn-success"><p th:text="#{petlog.edit}"/></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+<div th:insert="~{fragments/footer}"/>
+</body>
+</html>
